@@ -1,5 +1,6 @@
 /**
  * A custom event for broadcasting notifications to one or more subscribers.
+ * Inspired (and probably lifted at one point) from Dave Balmer’s lean and mean Jo framework <https://github.com/davebalmer/jo>.
  * 
  * Foo = function() {
  * 	this.events = {
