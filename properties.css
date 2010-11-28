@@ -1,0 +1,18 @@
+body {
+	font-family: Helvetica;
+	line-height: 1.55;
+	margin-top: 4em;
+}
+label {
+	display: inline-block;
+	width: 8em;
+}
+input[type=text] {
+	width: 22em;
+}
+.notification { 
+	position: absolute;
+	top: 1em;
+	padding: 0.25em;
+	background-color: #FF6; 
+}

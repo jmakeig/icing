@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Properties</title>
+	<link rel="stylesheet" type="text/css" href="properties.css" />
+	<script type="text/javascript" src="ML.js">//</script>
+	<script type="text/javascript" src="Lang.js">//</script>
+	<script type="text/javascript" src="Proxy.js">//</script>
+	<script type="text/javascript" src="Proxy_test.js">//</script>	
+	<script type="text/javascript">
+	var rfe = {
+			name: "name1",
+			description: "description1",
+			owner: null,
+			product: {
+				name: "MarkLogic Server",
+				version: "4.2-1"
+			},
+			tags: ["security", "standards"]
+		}
+		var model = new Proxy(rfe);
+
+		document.addEventListener("DOMContentLoaded", function(evt) {
+			var notificationEl = document.getElementById("Notification");
+			notificationEl.style.display = "none";
+
+			var nameEl = document.getElementById("Name");
+			nameEl.value = model.name;
+			nameEl.addEventListener("change", function(evt) {
+				model.name = this.value;
+			});
+			
+			var descriptionEl = document.getElementById("Description");
+			descriptionEl.value = model.description;
+			descriptionEl.addEventListener("change", function(evt) {
+				model.description = this.value;
+			});
+			
+			model.events.onChange.subscribe(function(obj, name, before, after) {
+				if("name" === name) nameEl.value = after;
+				if("description" === name) descriptionEl.value = after;
+				updateNotification("Updated <strong>" + name + "</strong> to <em>" + after + "</em>.");
+			});
+			
+			function updateNotification(message) {
+				notificationEl.style.display = "block";
+				notificationEl.innerHTML = message;
+				setTimeout(function() {
+					notificationEl.style.display = "none";
+				}, 1500);
+			}
+		});
+
+	</script>
+</head>
+<body>
+	<form action="?">
+		<div class="control">
+			<label>Name</label>
+			<input type="text" id="Name"/>
+		</div>
+		<div class="control">
+			<label>Description</label>
+			<input type="text" id="Description"/>
+		</div>
+		<h3>Product</h3>
+		<div class="control">
+			<label>Product</label>
+			<input type="text" id="Product"/>
+		</div>
+		<div class="control">
+			<label>Version</label>
+			<input type="text" id="Version"/>
+		</div>
+	</form>
+	<div id="Notification" class="notification"></div>
+</body>
+</html>
