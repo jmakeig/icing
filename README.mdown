@@ -3,5 +3,6 @@ A wrapper around a plain old JavaScript object that fires events when properties
     var foo = { bar: 1, baz: ["a", "b", "c"], blah: function() { this.bar = 5; }}
     var model = new Proxy(foo);
     model.subscribe(function() { … }, model);
+    model.bar = 6; // fires change event
     model.baz.set(1, "B"); // fires change
     model.blah(55); // fires change
